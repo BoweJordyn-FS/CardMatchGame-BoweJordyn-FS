@@ -3,11 +3,36 @@ $button-color: #D8A030;
 $font-family: "Open Sans", sans-serif;
 $font-medium: 500;
 $font-bold: 700;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.552);
+
+@mixin flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin card-size{
+  width: 190px;
+  height: 290px;
+}
+@mixin card-face-base{
+  position: absolute;
+  backface-visibility: hidden;
+  @include card-size();
+}
+
+//======================================
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow: noscroll;
 }
 
 body{
@@ -15,7 +40,7 @@ body{
   color: white;
   font-family: $font-family;
   main{
-    margin: 40px;
+    margin: 20px;
 
   }
 }
@@ -23,65 +48,99 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 50px 0;
+  #gameRules{
+    h2{
+      font-size: 28px;
+    }
+    h4{
+      font-weight: $font-medium;
+    }
+  }
 }
 
 #game-container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
+ @include flex-center;
+ @include flex-column;
+  margin-top: 30px;
+
   #thegame{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    width: 800px;
-    gap: 20px;
-    border: white solid 2px;
+    width: auto;
+    gap: 15px;
     perspective: 1000px;
-   .card{
-    position: relative;
-    width: 250px;
-    height: 400px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform-style: preserve-3d;
-    transform: rotateY(180deg);
-    transition: transform 0.5s;
-    
-    &.flipped{
+    justify-items: center;
+   .card {
+      position: relative;
+      @include card-size();
+      @include flex-center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
       transform: rotateY(0deg);
-    }
-    
-    &:active{
-      transform: scale(0.98);
-    }
-    
-    .back-face{
-      background-image: url(/src/img/playing-card-canva.png);
-      background-size: cover;
-      width: 250px;
-      height: 400px;
-      position: absolute;
-      backface-visibility: hidden;
-    }
-    
-    .front-face{
-      background-color: #FAF7F7;
-      width: 225px;
-      height: 320px;
-      border-radius: 10px;
-      position: absolute;
-      // backface-visibility: hidden;
-      transform: rotateY(180deg);
-    }
-}
-  }
+      transition: transform 0.5s;
+  
+      &.flipped{
+        transform: rotateY(180deg);
+      }
+      
+      &:active{
+        transform: scale(0.98);
+      }
+      
+      .card-face {
+        position: absolute;
+        width: 190px;
+        height: 290px;
+        backface-visibility: hidden;
+      }
+      
+      .front-face{
+        width: 170px;
+        height: 250px;
+        border-radius: 10px;
+        transform: rotateY(180deg);
+        background-color: white;
+        
+        h2{
+          font-size: 80px;
+          text-align: center;
+          margin-top: 75px;
+     
+       
+        }
+      }
+      .back-face{
+        background-image: url(/src/img/playing-card-canva.png);
+        background-size: cover;
+      }
+  
 }
 
+}
+  }
+  
+#results{
+    margin: 30px;
+    font-size: 30px;
+    font-weight: $font-medium;
+  }
 button{
-  max-width: 200px;
-  font-size: 20px;
+ margin: 20px;
+ padding: 20px 30px;
+font-size: 20px;
+background-color: $button-color;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+font-weight: $font-bold;
+color: white;
+box-shadow: $shadow;
+&:hover{
+  background-color: #deba71;
+}
 }
