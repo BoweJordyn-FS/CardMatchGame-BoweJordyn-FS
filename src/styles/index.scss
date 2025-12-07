@@ -7,6 +7,7 @@ $font-bold: 700;
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body{
@@ -27,7 +28,57 @@ body{
 #game-container{
   display: flex;
   flex-direction: column;
- 
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  #thegame{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 800px;
+    gap: 20px;
+    border: white solid 2px;
+    perspective: 1000px;
+   .card{
+    position: relative;
+    width: 250px;
+    height: 400px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    transition: transform 0.5s;
+    
+    &.flipped{
+      transform: rotateY(0deg);
+    }
+    
+    &:active{
+      transform: scale(0.98);
+    }
+    
+    .back-face{
+      background-image: url(/src/img/playing-card-canva.png);
+      background-size: cover;
+      width: 250px;
+      height: 400px;
+      position: absolute;
+      backface-visibility: hidden;
+    }
+    
+    .front-face{
+      background-color: #FAF7F7;
+      width: 225px;
+      height: 320px;
+      border-radius: 10px;
+      position: absolute;
+      // backface-visibility: hidden;
+      transform: rotateY(180deg);
+    }
+}
+  }
 }
 
 button{
